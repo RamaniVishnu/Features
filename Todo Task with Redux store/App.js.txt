@@ -1,0 +1,73 @@
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo, removeTodo, editTodo, deleteTodo } from "../Actions";
+
+function App() {
+  const [list, setList] = useState("");
+  const [elemIndex, setElemIndex] = useState(null);
+  const [editVal, setEditVal] = useState("");
+
+  const dispatch = useDispatch();
+  const dataList = useSelector((state) => state.todo.todos);
+  const addList = () => {
+    dispatch(addTodo(list));
+    setList("");
+  };
+
+  const handleEditList = (index) => {
+    setElemIndex(index);
+    setEditVal(dataList[index]);
+  };
+
+  const handleEdit = (index) => {
+    dispatch(editTodo(index, editVal));
+    setElemIndex(null);
+    setEditVal("");
+  };
+
+  return (
+    <>
+      <h1> Todo List from Child Comp</h1>
+      <input
+        type="text"
+        value={list}
+        onChange={(e) => setList(e.target.value)}
+      />
+      <button onClick={addList}>add List</button>
+      {dataList.length > 0 ? (
+        <button onClick={() => dispatch(deleteTodo())}>delete list</button>
+      ) : (
+        ""
+      )}
+      {dataList.length > 0
+        ? dataList.map((elem, index) => (
+            <>
+              <li key={index}>
+                {index === elemIndex ? (
+                  <div>
+                    <input
+                      type="text"
+                      value={editVal}
+                      onChange={(e) => setEditVal(e.target.value)}
+                    />
+                    <button onClick={() => handleEdit(index)}>save</button>
+                    <button onClick={() => setElemIndex(null)}>cancel</button>
+                  </div>
+                ) : (
+                  <>
+                    {elem}
+                    <button onClick={() => handleEditList(index)}>Edit</button>
+                    <button onClick={() => dispatch(removeTodo(index))}>
+                      remove
+                    </button>
+                  </>
+                )}
+              </li>
+            </>
+          ))
+        : ""}
+    </>
+  );
+}
+
+export default App;
