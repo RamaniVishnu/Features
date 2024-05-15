@@ -1,0 +1,31 @@
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addCard, removeCard } from "./store/store.js";
+
+// import CartComp from "./Cart";
+function HomeComp() {
+  const [cards, setCard] = useState([
+    { id: 1, name: "cardone", price: 10 },
+    { id: 2, name: "cardtwo", price: 100 },
+    { id: 3, name: "cardthree", price: 50 },
+  ]);
+  const [cartCard, setCartCard] = useState([]);
+  const dispatch = useDispatch();
+  const handleCards = (card) => {
+    dispatch(addCard(card));
+  };
+  return (
+    <div>
+      home....
+      {cards.map((card, index) => (
+        <li key={index}>
+          {card.name} {card.price}
+          <button onClick={() => handleCards(card)}>Add to cart</button>
+        </li>
+      ))}
+      {/* <CartComp cardVal={cards} /> */}
+    </div>
+  );
+}
+
+export default HomeComp;

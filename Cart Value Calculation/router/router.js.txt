@@ -1,0 +1,22 @@
+import React from "react";
+import { createBrowserRouter } from "react-router-dom";
+import App from "../App";
+import HomeComp from "../Home";
+import CartComp from "../Cart";
+
+export const allRoutes = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "cart",
+        element: <CartComp />,
+      },
+      {
+        path: "home",
+        element: <HomeComp />,
+      },
+    ],
+  },
+]);

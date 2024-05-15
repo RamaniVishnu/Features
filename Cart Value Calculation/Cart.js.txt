@@ -1,0 +1,45 @@
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeCard } from "./store/store.js";
+
+function CartComp() {
+  const cardList = useSelector((state) => state.cards);
+  const dispatch = useDispatch();
+  const [price, setPrice] = useState(0);
+
+  const handleRemove = (index) => {
+    dispatch(removeCard(index));
+  };
+
+  useEffect(() => {
+    let total = 0;
+    cardList.forEach((elem) => {
+      total += elem.price;
+    });
+    setPrice(total);
+  }, [cardList]);
+
+  return (
+    <div>
+      cart....
+      {cardList.length > 0 ? (
+        <div>
+          {cardList.map((card, index) => (
+            <>
+              <li>
+                {card.name}
+                {card.price}{" "}
+              </li>
+              <button onClick={() => handleRemove(index)}>remove</button>
+            </>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
+      {`total cart price is ${price}`}
+    </div>
+  );
+}
+
+export default CartComp;
