@@ -1,0 +1,31 @@
+import React, { useState } from 'react';
+import { list } from './mockData';
+
+function searchBar() {
+  const [data, setData] = useState(list);
+  const [color, setColor] = useState('');
+  const [result, setResult] = useState('');
+
+  const handleSelect = (elem) => {
+    setResult(elem);
+    setColor('');
+  };
+
+  const handleInput = (event) => {
+    setColor(event.target.value);
+    setResult('');
+  };
+  return (
+    <div>
+      <input type="text" value={color} onChange={handleInput} />
+      {color &&
+        data
+          .filter((elem) => elem.toLowerCase().startsWith(color.toLowerCase()))
+          .map((elem) => <li onClick={() => handleSelect(elem)}>{elem}</li>)}
+
+      {result && <p>{`selected value is ${result}`}</p>}
+    </div>
+  );
+}
+
+export default searchBar;
