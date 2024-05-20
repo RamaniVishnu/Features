@@ -1,0 +1,15 @@
+import { INCREMENT, DECREMENT, MULTIPLY, RESET } from './actionType.js';
+export const increment = () => ({
+  type: INCREMENT,
+});
+
+export const decrement = () => ({
+  type: DECREMENT,
+});
+export const multiply = (value) => ({
+  type: MULTIPLY,
+  value,
+});
+export const reset = () => ({
+  type: RESET,
+});

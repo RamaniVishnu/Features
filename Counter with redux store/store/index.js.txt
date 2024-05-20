@@ -1,0 +1,7 @@
+import { combineReducers, createStore } from 'redux';
+import counterReducer from './store.js';
+const reducer = combineReducers({
+  counter: counterReducer,
+});
+
+export const allStore = createStore(reducer);
