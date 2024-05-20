@@ -1,0 +1,13 @@
+export const arraylist = [
+  "Farrel Hoggin",
+  "Irma Olech",
+  "EMMit Gallacher",
+  "emmit gallacher",
+  "Dunn Astlet",
+  "Burg Peaddie",
+  "bryui",
+  "Molli Knoller",
+  "Ellen Cheak",
+  "Kaela Hannibal",
+  "Roxanna Mughal",
+];
