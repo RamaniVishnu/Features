@@ -1,0 +1,18 @@
+import React from 'react';
+import ToppingComp from './ToppingComp';
+
+function Crust({ crustval, handleCrust, toppingval, handleTopping }) {
+  return (
+    <>
+      Crust....
+      {crustval.map((crust) => (
+        <li>
+          {crust.type} {crust.rate}
+          <button onClick={() => handleCrust(crust)}>add</button>
+        </li>
+      ))}
+      <ToppingComp toppingval={toppingval} handleTopping={handleTopping} />
+    </>
+  );
+}
+export default Crust;

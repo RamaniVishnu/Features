@@ -1,0 +1,52 @@
+import React, { useState, useEffect, useCallback } from 'react';
+import './style.css';
+import CrustComp from './CrustComp';
+
+export default function App() {
+  const [crust, setCrust] = useState([
+    { id: 1, type: 'crust 1', rate: 100 },
+    { id: 2, type: 'crust 2', rate: 200 },
+    { id: 3, type: 'crust 3', rate: 300 },
+    { id: 4, type: 'crust 4', rate: 400 },
+  ]);
+
+  const [topping, setTopping] = useState([
+    { id: 1, type: 'topping 1', rate: 10, count: 0 },
+    { id: 2, type: 'topping 2', rate: 20, count: 0 },
+    { id: 3, type: 'topping 3', rate: 30, count: 0 },
+    { id: 4, type: 'topping 4', rate: 40, count: 0 },
+  ]);
+
+  const [selectCrust, setSelectedCrust] = useState('');
+  const [bill, setBill] = useState(0);
+
+  const calculateBill = useCallback(() => {
+    console.log('billl', selectCrust);
+    let amount = topping.reduce((acc, curr) => acc + curr.rate * curr.count, 0);
+    if (selectCrust.rate) {
+      amount += parseInt(selectCrust.rate);
+    }
+    setBill(amount);
+  }, [topping, selectCrust]);
+
+  useEffect(() => {
+    calculateBill();
+  }, [topping, selectCrust]);
+
+  return (
+    <div>
+      <h1>Hello StackBlitz!</h1>
+      <CrustComp
+        crustval={crust}
+        handleCrust={setSelectedCrust}
+        toppingval={topping}
+        handleTopping={setTopping}
+      />
+      {selectCrust && (
+        <p>{`App.js comp ${selectCrust.type} ${selectCrust.rate}`}</p>
+      )}
+
+      {<p> bill amount:{bill}</p>}
+    </div>
+  );
+}

@@ -1,0 +1,27 @@
+import React from 'react';
+
+function ToppingComp({ toppingval, handleTopping }) {
+  const handleSelect = (value) => {
+    handleTopping(
+      toppingval.map((topping, index) => {
+        if (index === value) {
+          return { ...topping, count: topping.count + 1 };
+        } else {
+          return topping;
+        }
+      })
+    );
+  };
+  return (
+    <>
+      ToppingComp....
+      {toppingval.map((elem, index) => (
+        <li>
+          {elem.type} rate: {elem.rate} count: {elem.count}
+          <button onClick={() => handleSelect(index)}>add</button>
+        </li>
+      ))}
+    </>
+  );
+}
+export default ToppingComp;
