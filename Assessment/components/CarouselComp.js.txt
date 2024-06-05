@@ -1,0 +1,58 @@
+import React, { useState } from 'react';
+
+function CarouselComp() {
+  const [cards] = useState([
+    { title: 'card 1', index: 0 },
+    { title: 'card 2', index: 1 },
+    { title: 'card 3', index: 2 },
+    { title: 'card 4', index: 3 },
+  ]);
+
+  const [count, setCount] = useState(0);
+  const [leftBtn, setLeftBtn] = useState(true);
+  const [rightBtn, setRightBtn] = useState(false);
+
+  const handleBtn = (direction) => {
+    if (direction === 'left' && count > 0) {
+      setCount(count - 1);
+      setRightBtn(false);
+      if (count - 1 === 0) {
+        setLeftBtn(true);
+      }
+    } else {
+      setCount(count + 1);
+      setLeftBtn(false);
+      if (count + 1 === cards.length - 1) {
+        setRightBtn(true);
+      }
+    }
+  };
+
+  return (
+    <>
+      <div>
+        {cards
+          .filter((card) => card.index === count)
+          .map((elem) => (
+            <div style={{ display: 'flex' }}>
+              <button
+                onClick={() => handleBtn('left')}
+                disabled={leftBtn}
+              >{`<`}</button>
+              <div
+                style={{ width: '50px', height: '50px', border: '1px solid' }}
+              >
+                {elem.title}
+              </div>
+              <button
+                onClick={() => handleBtn('right')}
+                disabled={rightBtn}
+              >{`>`}</button>
+            </div>
+          ))}
+      </div>
+    </>
+  );
+}
+
+export default CarouselComp;

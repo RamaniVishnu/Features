@@ -1,0 +1,40 @@
+/* GallerySlider.scss */
+
+.collage-item1 {
+  grid-area: header;
+}
+.collage-item2 {
+  grid-area: menu;
+}
+.collage-item3 {
+  grid-area: main;
+}
+.collage-item4 {
+  grid-area: right;
+}
+.collage-item5 {
+  grid-area: footer;
+}
+.collage-item6 {
+  grid-area: same;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header menu main'
+    'right footer same'; /* Merged into one row */
+  background-color: whitesmoke;
+  gap: 5px;
+  padding: 1px;
+  width: 600px;
+  height: 314px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  font-size: 30px;
+  width: 200px;
+  height: 157px;
+}
