@@ -1,86 +1,65 @@
-<template>
-	<div>
-		this is Todo Task without store.......
-		<input
-			v-model="task"
-			type="text"
-		/>
-		<button @click="addTask()">
-			Add Task
-		</button>
-		<button
-			:disabled="listTask.length === 0"
-			@click="deleteTaskList()"
-		>
-			Delete
-		</button>
-		<div
-			v-for="(createdTask,index) in listTask"
-			:key="index"
-		>
-			<div style="border:1px solid red;width: 260px;height: 100px">
-				{{ createdTask }}
-				<input
-					:style="{display: editDisplay[createdTask]? 'block':'none' }"
-					type="text"
-					v-model="updateTaskVal"
-				/>
-				<button
-					:style="{display: editDisplay[createdTask]? 'none':'block' }"
-					@click="editTask(createdTask)"
-				>
-					edit
-				</button>
-				<button
-					:style="{display: editDisplay[createdTask]? 'block':'none' }"
-					@click="updateTask(index)"
-				>
-					update
-				</button>
-				<button @click="removeTask(createdTask)">
-					remove
-				</button>
-			</div>
-		</div>
-	</div>
-</template>
-
 <script>
 export default {
-	name: 'Demo',
-	data() {
-		return {
-			task: '',
-			listTask: [],
-			updateTaskVal: '',
-			editDisplay: {},
-			updatedTaskList: '',
-		};
-	},
-	methods: {
-		addTask() {
-			this.listTask.push(this.task);
-			this.task = '';
-		},
-		editTask(createdTaskVal) {
-			this.editDisplay = { ...this.editDisplay, [createdTaskVal]: true };
-		},
-		updateTask(index) {
-			this.updatedTaskList = [...this.listTask];
-			this.updatedTaskList[index] = this.updateTaskVal;
-			this.listTask = this.updatedTaskList;
-			this.updateTaskVal = '';
-		},
-		removeTask(createdTaskVal) {
-			this.listTask = this.listTask.filter((elem) => elem !== createdTaskVal);
-		},
-		deleteTaskList() {
-			this.listTask = '';
-		},
-	},
-};
+  data(){
+    return {
+      editIndex: null,
+      taskInput: '',
+      editValue: '',
+      taskList: []
+
+    };
+  },
+  components:{
+    
+  },
+  methods:{
+    addTask(){
+      this.taskList.push(this.taskInput);
+      this.taskInput='';
+
+    },
+    removeTask(indexVal){
+      this.taskList = this.taskList.filter((elem,index)=> index !== indexVal)
+    },
+    updateTask(indexVal){
+      let tasks = [...this.taskList];
+      tasks[indexVal] = this.editValue;
+      this.taskList=tasks;
+      this.editIndex =null;
+      this.editValue = '';
+    }
+  },
+  computed:{
+
+  },
+  watch:{
+    
+  }
+}
 </script>
 
-<style scoped lang="scss">
+<template>
+  <div>
+    <input v-model ="taskInput" /><button @click="addTask">add</button>
+<div v-for="(task,index) in taskList">
+    <div v-if="index === editIndex">
+    <li><input v-model="editValue" />
+    <button @click="updateTask(index)">update</button>
+    <button @click="editIndex = null">ignore</button>
+    </li>
+    </div>
+    <div v-else>
+      <li>
+        {{ task}}
+        <button @click="editIndex = index">edit</button>
+        <button @click="removeTask(index)">remove</button>
+      </li>
+    </div>
 
+ 
+</div>
+  </div>
+</template>
+
+<style>
 </style>
