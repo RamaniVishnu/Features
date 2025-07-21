@@ -1,0 +1,36 @@
+<template>
+  <div>
+    {{ count }}
+    <p v-if="message">message is:-{{ message }}</p>
+    <p v-if="actionPerformed">action performed is: - {{ actionPerformed }}</p>
+    <ChildComp @increment="increaseCount" @decrement="decreaseCount" />
+  </div>
+</template>
+<script>
+import ChildComp from "./ChildComp.vue";
+export default {
+  name: "ParentComp",
+  components: { ChildComp },
+  data() {
+    return {
+      count: 0,
+      message: "",
+      actionPerformed: "",
+    };
+  },
+  methods: {
+    increaseCount({ action, msg }) {
+      this.count++;
+      this.message = msg;
+      this.actionPerformed = action;
+    },
+    decreaseCount({ action, msg }) {
+      this.count--;
+      this.message = msg;
+      this.actionPerformed = action;
+    },
+  },
+};
+</script>
+<style></style>
+s
