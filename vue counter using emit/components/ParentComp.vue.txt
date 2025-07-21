@@ -1,0 +1,27 @@
+<template>
+  <div>
+    {{ count }}
+    <ChildComp @increment="increaseCount" @decrement="decreaseCount" />
+  </div>
+</template>
+<script>
+import ChildComp from "./ChildComp.vue";
+export default {
+  name: "ParentComp",
+  components: { ChildComp },
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  methods: {
+    increaseCount() {
+      this.count++;
+    },
+    decreaseCount() {
+      this.count--;
+    },
+  },
+};
+</script>
+<style></style>

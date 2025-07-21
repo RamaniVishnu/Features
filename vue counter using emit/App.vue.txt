@@ -1,0 +1,17 @@
+<template>
+  <div id="app">
+    <ParentComp />
+  </div>
+</template>
+
+<script>
+import ParentComp from "./components/ParentComp";
+export default {
+  name: "App",
+  components: {
+    ParentComp,
+  },
+};
+</script>
+
+<style></style>

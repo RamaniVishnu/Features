@@ -1,0 +1,17 @@
+<template>
+  <div>
+    <button @click="handleCounter('increment')">increment</button>
+    <button @click="handleCounter('decrement')">decrement</button>
+  </div>
+</template>
+<script>
+export default {
+  name: "ChildComp",
+  methods: {
+    handleCounter(value) {
+      this.$emit(value);
+    },
+  },
+};
+</script>
+<style></style>
