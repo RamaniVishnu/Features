@@ -25,3 +25,38 @@ export default {
 };
 </script>
 <style></style>
+
+
+//v.v.v.v.v.vimp Note
+Ques: why i should not use this.count = this.count++ ?
+Answer:-
+Great question! It might look like this.count = this.count++ should increase the count, but there's a hidden behavior in JavaScript that causes it not to work the way you'd expect.
+
+🧠 The Sneaky Truth Behind this.count = this.count++
+The ++ operator has two forms:
+
+count++ → post-increment (returns the original value before incrementing)
+
+++count → pre-increment (returns the value after incrementing)
+
+When you write this.count = this.count++, here's what happens under the hood:
+
+this.count++ increments the value of count, but returns the old value.
+
+That old value is then assigned back to this.count.
+
+So the increment is undone, and count stays the same!
+
+✅ What to use instead
+To actually increment the value:
+
+js
+this.count++;      // Correct and preferred
+Or if you like assigning explicitly:
+
+js
+this.count = this.count + 1; // Also fine
+📌 TL;DR
+this.count = this.count++ ➜ counter stays the same 😬
+
+this.count++ ➜ counter goes up as expected ✅
