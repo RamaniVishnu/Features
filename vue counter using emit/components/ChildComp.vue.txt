@@ -1,12 +1,16 @@
 <template>
   <div>
     <button @click="handleCounter('increment')">increment</button>
-    <button @click="handleCounter('decrement')">decrement</button>
+    <button @click="handleCounter('decrement')" :disabled="counter < 0">decrement</button>
   </div>
 </template>
 <script>
 export default {
   name: "ChildComp",
+props:{
+counter:{
+type: Number,
+required: true},
   methods: {
     handleCounter(value) {
       this.$emit(value);
