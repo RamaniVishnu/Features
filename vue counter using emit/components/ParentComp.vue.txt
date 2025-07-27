@@ -1,7 +1,7 @@
 <template>
   <div>
     {{ count }}
-    <ChildComp @increment="increaseCount" @decrement="decreaseCount" />
+    <ChildComp @increment="increaseCount" @decrement="decreaseCount" :counter="count"/>
   </div>
 </template>
 <script>
