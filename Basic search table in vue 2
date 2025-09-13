@@ -1,0 +1,46 @@
+<template>
+<div>
+  <input v-model="value" placeholder="enter a value"/>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Login</th>
+      <th>node_id</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  v-for="(user,index) in filteredUser">
+      <td>{{index}}</td>
+      <td>{{user.login}}</td>
+      <td>{{user.node_id}}</td>
+    </tr>
+    </tbody>
+    
+  </table>
+ 
+</div>
+</template>
+<script>
+export default {
+  data(){
+    return {
+      users:[],
+      value:'',
+    }
+  },
+  computed:{
+    filteredUser(){
+      return this.users.filter(elem=> elem.login.startsWith(this.value.toLowerCase()));
+  },
+  },
+  created(){
+    fetch('https://api.github.com/users')
+    .then((response)=>response.json())
+    .then((res)=>{
+      this.users=res;
+      console.log(this.users)
+  })
+  },
+}
+</script>
