@@ -1,0 +1,65 @@
+<template>
+  <div>
+    <input v-model="value" placeholder="enter a value" />
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              ID
+            </th>
+            <th>
+              Login
+            </th>
+            </tr>
+        </thead>
+        <tbody v-for="(user,index) in filteredUser">
+          <tr>
+            <td>{{index}}</td>
+            <td>{{user.login}}</td>
+            <td><button v-if="!(editIndex === index)" @click="handleEdit(index)">edit</button>
+            <button v-if="editIndex === index" @click="handleSave(index)" :disabled="editValue === ''">Save</button>
+            </td>
+            <td v-if="editIndex === index"><input v-model="editValue" placeholder="enter edit value "/></td>
+          </tr>
+          </tbody>
+      </table>
+
+    </div>
+  </div>
+</template>
+<script>
+export default{
+  data(){
+    return {
+      users: [],
+      value:'',
+      editIndex: null,
+      editValue:''
+    }
+  },
+  computed:{
+    filteredUser(){
+      return this.users.filter((elem)=>elem.login.startsWith(this.value.toLowerCase()))
+    }
+  },
+  created(){
+    fetch('https://api.github.com/users')
+    .then((response)=>response.json())
+    .then((res)=>this.users = res)
+    .catch((err)=>console.log(err))
+  },
+  methods:{
+    handleEdit(index){
+      this.editIndex = index;
+    },
+    handleSave(index){
+      this.users[index].login = this.editValue;
+      this.editIndex = null;
+      this.editValue ="";
+    }
+  }
+}
+</script>
+
+
