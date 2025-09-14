@@ -1,0 +1,52 @@
+<template>
+<div>
+  <input v-model="value" placeholder="enter a user" @input="handleInput"/>
+  <div v-for="user in filterUser">
+    <li>{{user.login}}</li>
+  </div>
+</div>
+</template>
+<script>
+export default {
+  data(){
+    return {
+      users:[],
+      filterUser:[],
+      value:''
+    }
+  },
+  created(){
+    fetch('https://api.github.com/users')
+    .then((response)=>response.json())
+    .then((res)=>{this.users = res;
+    this.filterUser = res
+  })
+    .catch((err)=>console.log(err));
+
+    this.debounceSearch = this.debounce(()=>{
+      console.log('de...')
+      this.filterUser = this.users.filter((elem)=>elem.login.startsWith(this.value.toLowerCase()))
+    },500)
+  },
+  methods:{
+    handleInput(){
+     if(this.value === ''){
+      this.filterUser =this.users
+     } else {
+      this.debounceSearch();
+     }
+    },
+    debounce(fn,delay){
+      let timeoutID;
+      const context = this;
+      return function(){
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(()=>{
+          fn.apply(context)
+        },delay)
+      }
+    }
+  }
+
+}
+</script>
