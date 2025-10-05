@@ -1,0 +1,39 @@
+<template>
+  <div>
+    <input v-model="searchTerm" @input="handleInput" placeholder="Search..." />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      searchTerm: '',
+    };
+  },
+  created() {
+    this.throttledSearch = this.throttle(function () {
+      console.log('Searching for:', this.searchTerm);
+      // Simulate API call or heavy computation
+    }, 1000); // 1 second throttle
+  },
+  methods: {
+    handleInput() {
+      this.throttledSearch();
+    },
+    throttle(fn, wait) {
+      let isThrottled = false;
+      return function (...args) {
+        if (!isThrottled) {
+          fn.apply(this, args);
+          isThrottled = true;
+          setTimeout(() => {
+            isThrottled = false;
+          }, wait);
+        }
+      };
+    }
+  }
+};
+</script>
+beforeEnter, beforeRouteEnter, beforeRouteUpdate, beforeRouteLeave
