@@ -1,0 +1,21 @@
+vue composition api
+1) double moustache
+Note: 
+a)in this text interpolation , we can use js expressions, but we cannot use more than one js expressions.
+For eg: <h1>{{msg.toUpperCase();msg=msg+'hi'}}</h1>
+will give u syntax error 
+b)we cannot declare new variables as well
+eg: <h1>{{const msg="hhh"}}</h1>
+gives syntax error
+
+c)we cannot evaluate a statement as well
+eg: <h1>{{if(msg) {return true}</h1>
+gives syntax error
+
+d)we can use operator like or(||), and(&&),ternary operator
+eg:<h1>{{msg? 'hi' : 'hello'}}</h1>
+<h1>{{msg|| 'hi'}}</h1>
+<h1>{{msg && message }}</h1>
+these will not give any errors
+
+

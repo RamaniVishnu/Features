@@ -1,0 +1,45 @@
+in TypeScript, you can use enums to enforce type checking for values in a function. Enums are a way to define a set of named constants, and TypeScript can leverage them to ensure that only valid values are passed to functions or used in your code.
+
+Here's a basic example of how you can use an enum for type checking:
+
+Define an Enum:
+
+First, create an enum that contains the set of valid values.
+enum Status {
+    Pending = "Pending",
+    Approved = "Approved",
+    Rejected = "Rejected"
+}
+Use Enum in Function Parameters:
+
+You can then use this enum in function parameters to ensure only valid enum values are passed.
+function updateStatus(status: Status): void {
+    console.log(`Status updated to: ${status}`);
+}
+Call Function with Enum Values:
+
+When calling the function, TypeScript will enforce that only values from the Status enum can be used.
+updateStatus(Status.Pending); // Valid
+updateStatus(Status.Approved); // Valid
+updateStatus("Pending"); // Error: Argument of type '"Pending"' is not assignable to parameter of type 'Status'.
+Handling Non-Enum Values:
+
+If you try to pass a value that is not part of the enum, TypeScript will throw an error, thus enforcing the type safety.
+updateStatus("InvalidStatus"); // Error: Argument of type '"InvalidStatus"' is not assignable to parameter of type 'Status'.
+Optional Enum Usage:
+
+You can also use enums for other types of type checks, such as setting default values or creating mappings.
+
+function getStatusMessage(status: Status): string {
+    switch (status) {
+        case Status.Pending:
+            return "Your request is pending.";
+        case Status.Approved:
+            return "Your request has been approved.";
+        case Status.Rejected:
+            return "Your request has been rejected.";
+        default:
+            return "Unknown status.";
+    }
+}
+By using enums in this way, you ensure that the values passed around in your functions and other parts of your code are restricted to the predefined set of constants, which helps prevent errors and improves code clarity.

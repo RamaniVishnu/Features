@@ -1,0 +1,7 @@
+things to learn from nextjs
+1)hydrate and dehydrate:
+    overview: in SSR
+dehydrate is before component mount
+in CSR
+hydrate is after component mount
+2)

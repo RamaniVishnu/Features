@@ -1,0 +1,6 @@
+What is JS Proxy?
+The Proxy object allows you to create an object that can be used in place of the original object, but which may redefine fundamental Object operations like getting, setting, and defining properties. Proxy objects are commonly used to log property accesses, validate inputs, and so on
+
+
+for better understanding watch this video:-
+https://www.youtube.com/watch?v=vExLi5bTt3k

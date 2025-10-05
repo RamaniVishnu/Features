@@ -1,0 +1,63 @@
+1)What is AppProps?
+
+		In a Next.js application, AppProps is a TypeScript type provided by the next/app module. It represents the props that are passed to the custom App component, which is used to initialize pages.
+
+Here's a breakdown of its purpose:
+
+a)Custom App Component: In Next.js, you can create a custom App component by defining a file called _app.tsx or _app.js in the pages directory. This component allows you to override the default App component that Next.js uses. This is useful for initializing global settings or adding wrappers like context providers.
+
+b)AppProps Type: The AppProps type provides the type information for the props of this custom App component. It includes:
+
+c)Component: The active page component. This is the component that will be rendered based on the current route.
+
+d)pageProps: The props that are specific to the page being rendered.
+Usage Example:
+
+Eg:-
+// pages/_app.tsx
+import { AppProps } from 'next/app';
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+
+Explanation:
+In this example:
+		Component represents the page component that is being rendered.
+pageProps are the props that Next.js has prepared for the page component.
+Type Safety: Using AppProps with TypeScript helps ensure type safety for your custom App component. It provides clear expectations about what props the App component should receive and helps with auto-completion and error checking in your development environment.
+
+In summary, AppProps helps you type-check the props for your custom App component, ensuring that you handle the Component and pageProps correctly.
+
+
+
+2)What happens if I dont use AppProps in an application?
+		If you choose not to use AppProps in your custom _app component in a Next.js application, the following can occur:
+
+a)Lack of Type Checking: By not using AppProps, you lose the benefits of TypeScript's type checking for the props of your custom App component. This means that TypeScript won’t validate whether you are correctly handling the Component and pageProps properties. This could lead to runtime errors or bugs that TypeScript might have caught.
+
+b)Potential for Errors: Without type checking, you might accidentally make mistakes in handling Component or pageProps. For example, you might misuse the properties or forget to pass necessary props, leading to potential issues in your application.
+
+c)Reduced Development Experience: TypeScript’s type inference and auto-completion features are very useful for development. Not using AppProps means you miss out on these features, which could make development less efficient and more error-prone.
+
+d)Compatibility Issues: If you use custom configurations or third-party libraries that expect certain types for the App component, not using AppProps might cause compatibility issues. It’s often better to use the provided types to ensure that your application conforms to expected patterns.
+
+Here's what it might look like if you didn't use AppProps:
+
+Eg:-
+Copy code
+// pages/_app.tsx (without AppProps)
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }: any) {  // 'any' type instead of 'AppProps'
+  return <Component {...pageProps} />;
+}
+
+export default MyApp;
+In this example:
+		The any type is used instead of AppProps, which means you lose the type checking benefits for Component and pageProps.
+
+In summary, while your application might still work without AppProps, using it is highly recommended for better type safety, fewer bugs, and a more robust development experience.

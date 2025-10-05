@@ -1,0 +1,48 @@
+React query
+1)What is react query?
+TanStack Query (FKA React Query) is often described as the missing data-fetching library for web applications, but in more technical terms, it makes fetching, caching, synchronizing and updating server state in your web applications a breeze.
+
+2)what are the advantages of using react query?
+While most traditional state management libraries are great for working with client state, they are not so great at working with async or server state. This is because server state is totally different. For starters, server state:
+
+    - Is persisted remotely in a location you may not control or own
+    - Requires asynchronous APIs for fetching and updating
+    - Implies shared ownership and can be changed by other people without your knowledge
+    - Can potentially become "out of date" in your applications if you're not careful
+
+Once you grasp the nature of server state in your application, even more challenges will arise as you go, for example:
+
+    - Caching... (possibly the hardest thing to do in programming)
+    - Deduping multiple requests for the same data into a single request
+    - Updating "out of date" data in the background
+    - Knowing when data is "out of date"
+    - Reflecting updates to data as quickly as possible
+    - Performance optimizations like pagination and lazy loading data
+    - Managing memory and garbage collection of server state
+    - Memoizing query results with structural sharing
+
+3)Installation
+npm i @tanstack/react-query
+		(or)
+yarn add @tanstack/react-query
+
+Note: 
+- React Query is compatible with React v18+ and works with ReactDOM and React Native.
+- React Query is optimized for modern browsers. It is compatible with the following browsers config
+	Chrome >= 91
+	Firefox >= 90
+	Edge >= 91
+	Safari >= 15
+	iOS >= 15
+	Opera >= 77
+
+
+    "Depending on your environment, you might need to add polyfills. If you want to support older browsers, you need to transpile the library from node_modules yourselves."
+
+Recommendations
+It is recommended to also use our ESLint Plugin Query to help you catch bugs and inconsistencies while you code. You can install it via:
+bash
+
+npm i -D @tanstack/eslint-plugin-query
+		(or)
+yarn add -D @tanstack/eslint-plugin-query

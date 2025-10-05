@@ -1,0 +1,87 @@
+WAI-ARIA:-
+WAI-ARIA (Web Accessibility Initiative - Accessible Rich Internet Applications) is a specification written by the W3C, defining a set of additional HTML attributes that can be applied to elements to provide additional semantics and improve accessibility wherever it is lacking.
+
+This has 3 imp features, such as
+a) Roles
+b) Properties
+c) State
+
+A)Roles:
+link for reference: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles
+These define what an element is or does. Many of these are so-called landmark roles, which largely duplicate the semantic value of structural elements, such as role="navigation" (<nav>) or role="complementary" (<aside>). Some other roles describe different page structures, such as role="banner", role="search", role="tablist", and role="tabpanel", which are commonly found in UIs.
+
+There are 6 categories of ARIA roles:
+1. Document structure roles
+2. Widget roles
+3. Landmark roles
+4. Live region roles
+5. Window roles
+6. Abstract roles
+
+1)Document Structure Role
+Document Structure roles are used to provide a structural description for a section of content. Most of these roles should no longer be used as browsers now support semantic HTML elements with the same meaning. 
+
+For most document structure roles, semantic HTML equivalent elements are available and supported. Avoid using:
+article (use <article>)
+cell (use <td>)
+columnheader (use <th scope="col">)
+definition (use <dfn>)
+figure (use <figure> instead)
+heading (use h1 through h6)
+img (use <img> or <picture> instead)
+list (use either <ul> or <ol> instead)
+listitem (use <li> instead)
+row (use the <tr> with <table>)
+rowgroup (use <thead>, <tfoot> and <tbody>)
+rowheader (use <th scope="row">)
+table (use <table>)
+
+2)Widget Role
+Widget roles are used to define common interactive patterns. Like document structure roles, some widget roles have the same semantics as well-supported native HTML elements, and therefore should be avoided. The key difference is that widget roles typically require JavaScript for interaction, while document structure roles often do not.
+scrollbar
+searchbox
+separator (when focusable)
+slider
+spinbutton
+switch
+tab. etc
+
+3)Landmark role
+Screen readers use landmark roles to provide keyboard navigation to important sections of a page. Use these sparingly. Too many landmark roles create "noise" in screen readers, making it difficult to understand the overall layout of the page.
+
+banner (document <header>)
+complementary (<aside>)
+contentinfo (document <footer>)
+form (<form>)
+main (<main>)
+navigation (<nav>)
+region (<section>)
+search (<search>)
+
+4. Live region roles
+Live Region roles are used to define elements with content that will be dynamically changed. Sighted users can see dynamic changes when they are visually noticeable. These roles help low vision and blind users know if content has been updated. Assistive technologies, like screen readers, can be made to announce dynamic content changes:
+
+alert
+log
+marquee
+status
+timer
+
+5. Window roles
+Window roles define sub-windows to the main document window, within the same window, such as pop up modal dialogs:
+
+alertdialog
+dialog
+
+6. Abstract roles
+Abstract roles are only intended for use by browsers to help organize and streamline a document. They should not be used by developers writing HTML markup. Doing so will not result in any meaningful information being conveyed to assistive technologies or to users.
+
+Avoid using command, composite, input, landmark, range, roletype, section, sectionhead, select, structure, widget,and window.
+
+B)Properties
+These define properties of elements, which can be used to give them extra meaning or semantics. As an example, aria-required="true" specifies that a form input needs to be filled in order to be valid, whereas aria-labelledby="label" allows you to put an ID on an element, then reference it as being the label for anything else on the page, including multiple elements, which is not possible using <label for="input">. As an example, you could use aria-labelledby to specify that a key description contained in a <div> is the label for multiple table cells, or you could use it as an alternative to image alt text — specify existing information on the page as an image's alt text, rather than having to repeat it inside the alt attribute. You can see an example of this at Text alternatives.
+
+C)States
+Special properties that define the current conditions of elements, such as aria-disabled="true", which specifies to a screen reader that a form input is currently disabled. States differ from properties in that properties don't change throughout the lifecycle of an app, whereas states can change, generally programmatically via JavaScript.
+
+An important point about WAI-ARIA attributes is that they don't affect anything about the web page, except for the information exposed by the browser's accessibility APIs (where screen readers get their information from). WAI-ARIA doesn't affect webpage structure, the DOM, etc., although the attributes can be useful for selecting elements by CSS.

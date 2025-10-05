@@ -1,0 +1,3 @@
+In Vue 2, when you would assign an object to a reactive property, Vue would sometimes mutate the original object to make it reactive. This could lead to confusion if you tried to use the original object afterward.
+
+Vue 3’s approach with proxies allows for clearer separation. The original object stays intact, and you work with the reactive version stored in the component's state.

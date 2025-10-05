@@ -1,0 +1,26 @@
+Absolutely! You can use both staleTime and cacheTime together in React Query, as they serve different purposes:
+
+🔥 Difference Between staleTime and cacheTime
+Property	Purpose	Effect
+staleTime	Defines how long data stays fresh before becoming stale	Until the staleTime expires, React Query won't trigger a refetch
+cacheTime	Controls how long unused data stays in memory before being removed	After cacheTime expires, the cached data is deleted
+⚡ Example Using Both:
+tsx
+const { data } = useQuery({
+  queryKey: ['posts'],
+  queryFn: fetchPosts,
+  staleTime: 60000, // Data stays fresh for 1 minute
+  cacheTime: 300000, // Unused cache remains for 5 minutes
+});
+✅ What Happens Here?
+First 1 Minute (staleTime: 60000) → Cached data is considered fresh, so React Query won't refetch.
+
+After 1 Minute → Data becomes stale—next interaction triggers a refetch.
+
+Before 5 Minutes (cacheTime: 300000) → If no component is using the query, the cached data remains in memory.
+
+After 5 Minutes → The cache is completely removed from memory.
+
+This setup reduces unnecessary network requests while keeping frequently used data available. 🚀
+
+Want to explore more optimization strategies?

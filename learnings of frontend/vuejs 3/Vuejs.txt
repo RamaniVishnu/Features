@@ -1,0 +1,117 @@
+Vuejs 
+
+Directives:-
+Eg:-
+
+<template>
+  <div>
+    <p>Using text interpolation: {{ rawhtml }}</p>
+    <p>Using v-html directive: <span v-html="rawhtml"></span></p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      rawhtml: '<strong>This is bold text</strong> and <em>this is italic text</em>.',
+    };
+  },
+};
+</script>
+
+<style scoped>
+.read-the-docs {
+  color: #888;
+}
+</style>
+
+
+Note that you cannot use v-html to compose template partials, because Vue is not a string-based templating engine. Instead, components are preferred as the fundamental unit for UI reuse and composition.
+
+
+
+Attribute Bindings​ (shorthand ":" <div :id="dynamicId"></div>)
+Mustaches cannot be used inside HTML attributes. Instead, use a v-bind directive:
+
+template
+<div v-bind:id="dynamicId"></div>
+The v-bind directive instructs Vue to keep the element's id attribute in sync with the component's dynamicId property. If the bound value is null or undefined, then the attribute will be removed from the rendered element.
+
+Calling Functions:-
+It is possible to call a component-exposed method inside a binding expression:
+
+template
+<time :title="toTitleDate(date)" :datetime="date">
+  {{ formatDate(date) }}
+</time>
+VVVVVimp:-
+Functions called inside binding expressions will be called every time the component updates, so they should not have any side effects, such as changing data or triggering asynchronous operations.
+
+
+
+Dynamic Arguments​:-
+It is also possible to use a JavaScript expression in a directive argument by wrapping it with square brackets:
+
+template
+<!--
+Note that there are some constraints to the argument expression,
+as explained in the "Dynamic Argument Value Constraints" and "Dynamic Argument Syntax Constraints" sections below.
+-->
+<a v-bind:[attributeName]="url"> ... </a>
+
+<!-- shorthand -->
+<a :[attributeName]="url"> ... </a>
+Here, attributeName will be dynamically evaluated as a JavaScript expression, and its evaluated value will be used as the final value for the argument. For example, if your component instance has a data property, attributeName, whose value is "href", then this binding will be equivalent to v-bind:href.
+
+Similarly, you can use dynamic arguments to bind a handler to a dynamic event name:
+
+template
+<a v-on:[eventName]="doSomething"> ... </a>
+
+<!-- shorthand -->
+<a @[eventName]="doSomething"> ... </a>
+In this example, when eventName's value is "focus", v-on:[eventName] will be equivalent to v-on:focus.
+
+
+
+Dynamic Argument Value Constraints​:-
+Dynamic arguments are expected to evaluate to a string, with the exception of null. The special value null can be used to explicitly remove the binding. Any other non-string value will trigger a warning.
+
+
+vvvvvvvimp:-
+Dynamic Argument Syntax Constraints​:-
+Dynamic argument expressions have some syntax constraints because certain characters, such as spaces and quotes, are invalid inside HTML attribute names. For example, the following is invalid:
+
+template
+<!-- This will trigger a compiler warning. -->
+<a :['foo' + bar]="value"> ... </a>
+If you need to pass a complex dynamic argument, it's probably better to use a computed property, which we will cover shortly.
+
+When using in-DOM templates (templates directly written in an HTML file), you should also avoid naming keys with uppercase characters, as browsers will coerce attribute names into lowercase:
+
+template
+<a :[someAttr]="value"> ... </a>
+The above will be converted to :[someattr] in in-DOM templates. If your component has a someAttr property instead of someattr, your code won't work. Templates inside Single-File Components are not subject to this constraint.
+
+
+
+
+
+
+Modifiers​
+Modifiers are special postfixes denoted by a dot, which indicate that a directive should be bound in some special way. For example, the .prevent modifier tells the v-on directive to call event.preventDefault() on the triggered event:
+
+template
+<form @submit.prevent="onSubmit">...</form>
+You'll see other examples of modifiers later, for v-on and for v-model, when we explore those features.
+
+And finally, here's the full directive syntax visualized:
+
+Eg:- 
+v-on:submit.prevent="onSubmit"
+
+v-on indicates the event or the directives
+submit indicates the arguments
+prevent indicates modifiers
+onSubmit indicates values interpreted as JS Expressions.

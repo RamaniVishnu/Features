@@ -1,0 +1,48 @@
+Program 1:
+const promise = new Promise((resolve, reject) => {
+  console.log(1);
+  setTimeout(() => {
+    console.log("timerStart");
+    resolve("success");
+    console.log("timerEnd");
+  }, 0);
+  console.log(2);=
+});
+
+promise.then((res) => {
+  console.log(res);
+});
+
+console.log(3);
+
+Explanation
+Key Points:
+1)Synchronous Resolution:
+When you call resolve or reject inside the promise constructor, it executes immediately and synchronously in the context of the executor function.
+
+2)Asynchronous Handling:
+The registered callbacks (like those in .then() or .catch()) do not run until the current synchronous code has finished executing. They are placed in the microtask queue and will be executed after the current stack of synchronous code completes.
+Example
+Consider this example:
+const promise = new Promise((resolve) => {
+  console.log("Inside Promise");
+  resolve("Promise Resolved");
+});
+
+promise.then((res) => {
+  console.log(res);
+});
+
+console.log("Outside Promise");
+Output:
+Inside Promise
+Outside Promise
+Promise Resolved
+Explanation:
+"Inside Promise" is logged immediately when the promise is created.
+"Outside Promise" is logged next, after the synchronous code has run.
+Finally, "Promise Resolved" is logged when the microtask queue is processed.
+
+
+Reference for link:
+https://medium.com/frontend-canteen/can-you-answer-this-senior-level-javascript-promise-interview-question-69f7b6ffc2e7

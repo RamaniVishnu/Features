@@ -1,0 +1,18 @@
+useWatch
+
+
+
+1)SessionProvider from 'next-auth'
+
+
+
+
+
+doubt: omniture ku enna analytics use pandreenga?
+
+
+
+Flow:
+app.tsx ->appstate.tsx which has following child like 
+           app telemetry (feels like tracking omniture)
+           alertProvider( to show some alert msg when application fails)
