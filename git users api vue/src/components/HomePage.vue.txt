@@ -1,0 +1,40 @@
+<template>
+  <div>
+    <button @click="fetchUsers">users</button>
+    <ul v-for="users in usersList">
+      <li>{{ users.login }}</li>
+    </ul>
+    <br />
+    <input placeholder="enter the num" type="string" @change="getUser" />
+    <p v-if="urlName">{{ urlName }}</p>
+  </div>
+</template>
+<script>
+import { mapGetters } from "vuex";
+export default {
+  name: "HomePage",
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapGetters(["allUsers", "userUrl"]),
+    usersList() {
+      return this.allUsers;
+    },
+    urlName() {
+      return this.userUrl;
+    },
+  },
+  methods: {
+    fetchUsers() {
+      console.log("fetch invoked....");
+      this.$store.dispatch("getAllUsers");
+    },
+    getUser(e) {
+      const id = e.target.value;
+      this.$store.dispatch("getUserUrl", id);
+    },
+  },
+};
+</script>
+<style></style>

@@ -1,0 +1,20 @@
+<template>
+  <div id="app">
+    <!-- <ParentComp /> -->
+    <HomePage />
+  </div>
+</template>
+
+<script>
+import ParentComp from "./components/ParentComp";
+import HomePage from "./components/HomePage";
+export default {
+  name: "App",
+  components: {
+    ParentComp,
+    HomePage,
+  },
+};
+</script>
+
+<style></style>
