@@ -1,0 +1,64 @@
+<template>
+  <div id="app">
+    <input
+      v-model="searchTerm"
+      placeholder="type a text"
+      @input="handleSearch"
+    />
+    <ul v-for="fruit in filteredFruits">
+      <li>
+        {{ fruit }}
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "App",
+  data() {
+    return {
+      searchTerm: "",
+      fruits: ["apple", "mango", "banana", "orange", "tomato", "avocado"],
+      filteredFruits: [],
+    };
+  },
+  created() {
+    this.debounceSearch = this.debounce(function () {
+      this.filteredFruits = this.fruits.filter((elem) =>
+        elem.startsWith(this.searchTerm.toLowerCase())
+      );
+    }, 500);
+  },
+  methods: {
+    handleSearch() {
+      if (this.searchTerm === "") {
+        this.filteredFruits = [];
+      } else {
+        this.debounceSearch();
+      }
+    },
+    debounce(fn, delay) {
+      let timeoutID;
+      const context = this;
+      return function (...args) {
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(() => {
+          fn.apply(context, args);
+        }, delay);
+      };
+    },
+  },
+};
+</script>
+
+<style>
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
