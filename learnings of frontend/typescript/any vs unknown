@@ -1,0 +1,36 @@
+any disables type checking completely, allowing any operation which can lead to runtime errors.
+unknown is a safer alternative where TypeScript forces you to narrow the type before using it. 
+I prefer unknown in cases like API responses or error handling to maintain type safety.
+
+1)When to use "any"?
+Use any only when you have no choice:
+✅ Valid cases:
+Migrating JS → TS quickly
+Third-party libraries without types
+Temporary debugging
+
+👉 Example:
+let data: any = JSON.parse(response);
+
+2)when to use "unknown"?
+Use unknown when:
+You don’t know the type yet
+Handling API responses
+Catch blocks
+try {
+  // code
+} catch (error: unknown) {
+  if (error instanceof Error) {
+    console.log(error.message);
+  }
+}
+
+
+Disadvantages
+❌ any
+No autocomplete safety
+No error detection
+Bugs appear at runtime (worst kind)
+⚠️ unknown
+Requires extra checks
+Slightly more verbose code
