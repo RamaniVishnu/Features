@@ -36,3 +36,26 @@ createRoot(document.getElementById('root')).render(
         </ErrorBoundary>
   </StrictMode>,
 )
+
+if you want to begin from home page if error has happen
+import { useNavigate } from "react-router-dom";
+
+export function ErrorFallback({ error, resetErrorBoundary }) {
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <h2>Something went wrong 😢</h2>
+      <p>{error.message}</p>
+
+      <button
+        onClick={() => {
+          resetErrorBoundary(); // clears error state
+          navigate("/");        // go to home page
+        }}
+      >
+        Go to Home
+      </button>
+    </div>
+  );
+}
