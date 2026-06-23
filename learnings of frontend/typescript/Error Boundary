@@ -1,0 +1,38 @@
+resetErrorBoundary() clears the error state stored by the Error Boundary and causes React to attempt rendering the wrapped components again.
+It does not automatically refetch data or create new Promises; for a true retry, the application must also recreate the failed async resource.
+
+
+
+ErrorBoundary.jsx
+export function ErrorFallback({ error, resetErrorBoundary }) {
+  return (
+    <div>
+      <h2>Something went wrong 😢</h2>
+      <p>{error.message}</p>
+
+      <button onClick={resetErrorBoundary}>
+        Try again Rmani...
+      </button>
+    </div>
+  );
+}
+
+
+main.jsx file
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from './ErrorBoundary.jsx';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <ErrorBoundary
+      FallbackComponent={ErrorFallback}
+      onReset={() => window.location.reload()}
+    >
+    <App />
+        </ErrorBoundary>
+  </StrictMode>,
+)
