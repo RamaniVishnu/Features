@@ -1,0 +1,186 @@
+void represents functions that complete execution but don’t return a value, typically used for side-effect functions like logging or API calls.
+never represents functions that never complete, such as those that throw errors or run infinitely. It’s also used in exhaustive checks to ensure all cases are handled
+
+
+✅ What is void?
+
+👉 void means:
+“This function does not return anything meaningful.”
+
+✅ Example
+function logMessage(): void {
+  console.log("Hello");
+}
+
+👉 This function:
+runs successfully
+but returns nothing useful
+  
+🧠 Important Detail
+Even though JS returns undefined, in TS:
+👉 void ≠ exactly undefined
+👉 It means ignore the return value
+
+⚠️ What happens if you return something?
+function logMessage(): void {
+  return "hello"; // ❌ error
+}
+👉 Not allowed (in strict typing)
+
+✅ Where void is used
+1. Event handlers (React)
+const handleClick = (): void => {
+  console.log("clicked");
+};
+2. Functions with side effects
+function saveData(): void {
+  // API call
+}
+👉 No return, just action
+
+  
+🔥 2. never in TypeScript
+✅ What is never?
+👉 never means:
+“This function never finishes normally.”
+
+✅ Example 1: Throwing error
+function throwError(): never {
+  throw new Error("Something went wrong");
+}
+
+👉 Function:
+never returns
+execution stops
+✅ Example 2: Infinite loop
+function infiniteLoop(): never {
+  while (true) {}
+}
+
+👉 Function:
+never ends
+never returns
+    
+🧠 Key Insight
+👉 void → function completes, returns nothing
+👉 never → function never completes
+
+🔥 3. Real Difference (CRITICAL)
+Feature	void	never
+Returns	Nothing (undefined)	Never returns
+Execution	Completes	Never completes
+Use case	Side effects	Errors / impossible states
+
+🔥 4. Practical Use of never (IMPORTANT)
+✅ Exhaustive Checks (Senior-level concept)
+type Shape = "circle" | "square";
+
+function getArea(shape: Shape) {
+  if (shape === "circle") return 1;
+  if (shape === "square") return 2;
+
+  const _exhaustiveCheck: never = shape; // 🔥 important
+}
+
+👉 If you add "triangle" later → TypeScript throws error
+  type Shape = "circle" | "square" | "triangle";
+Now your function is:
+
+function getArea(shape: Shape) {
+  if (shape === "circle") return 1;
+  if (shape === "square") return 2;
+
+  const _exhaustiveCheck: never = shape;
+}
+  What happens now?
+
+👉 TypeScript thinks:
+
+"circle" handled ✅
+"square" handled ✅
+"triangle" ❌ NOT handled
+
+So now:
+
+👉 shape = "triangle"
+  ❌ Now this line breaks:
+const _exhaustiveCheck: never = shape;
+
+👉 Error:
+
+Type '"triangle"' is not assignable to type 'never'
+💥 WHY this is powerful
+
+👉 It forces you to handle ALL cases
+
+✅ Fix (add missing case)
+if (shape === "triangle") return 3;
+
+Now again:
+👉 All cases handled → shape = never → no error
+
+  🎯 Why companies love this pattern
+
+Because:
+
+Prevents bugs when new cases are added
+Forces developers to update logic
+Used in reducers, APIs, UI states
+🚀 Real-world React Example
+type Status = "loading" | "success" | "error";
+
+function renderUI(status: Status) {
+  if (status === "loading") return "Loading...";
+  if (status === "success") return "Data loaded";
+  if (status === "error") return "Error occurred";
+
+  const _check: never = status;
+}
+
+👉 If someone adds "idle" later → TS forces update
+Why this matters:
+👉 Helps catch missing cases at compile time
+
+🔥 5. void vs never in Assignments
+let a: void;
+let b: never;
+
+a = undefined; // ✅
+b = undefined; // ❌
+
+👉 never is stricter
+
+🔥 6. Function Inference Difference
+Function declaration
+function test() {
+  throw new Error();
+}
+👉 inferred as never
+  
+Function expression
+const test = () => {
+  throw new Error();
+};
+👉 also never
+
+🔥 7. Common Mistakes
+❌ Confusing void with undefined
+let x: void = undefined; // ✅ but not recommended
+❌ Using never incorrectly
+function test(): never {
+  return; // ❌ wrong
+}
+
+👉 never must NOT return
+
+
+⚡ Simple Analogy
+void → “I finish but give nothing”
+never → “I never finish”
+  
+🚀 Pro Insight (Senior Level)
+Use void for side-effect functions
+Use never for:
+error handling
+exhaustive checks
+impossible states
