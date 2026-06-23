@@ -1,0 +1,160 @@
+“How do you handle functions and objects in TypeScript?”
+“I define strict types for function parameters and return values to ensure type safety. 
+For objects, I use types or interfaces to define structure, including optional and readonly properties.
+I also combine them to type APIs, props, and reusable logic.”
+
+
+🔥 1. Functions in TypeScript
+✅ Basic Function Typing
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+👉 What’s happening:
+
+a: number, b: number → parameter types
+: number → return type
+✅ Optional Parameters
+function greet(name: string, age?: number) {
+  return age ? `${name} is ${age}` : name;
+}
+
+👉 ? means optional
+
+✅ Default Parameters
+function greet(name: string = "Guest") {
+  return name;
+}
+✅ Function Type (Very Important)
+type AddFn = (a: number, b: number) => number;
+
+const add: AddFn = (x, y) => x + y;
+
+👉 Used a lot in:
+
+callbacks
+props in React
+✅ Void & Never
+function logMessage(): void {
+  console.log("Hello");
+}
+function throwError(): never {
+  throw new Error("Error");
+}
+
+👉 never = function never completes
+
+🔥 2. Objects in TypeScript
+✅ Basic Object Type
+let user: { name: string; age: number } = {
+  name: "John",
+  age: 30
+};
+
+👉 Not scalable → use type or interface
+
+✅ Using Type
+type User = {
+  name: string;
+  age: number;
+};
+
+const user: User = {
+  name: "John",
+  age: 30
+};
+✅ Optional Properties
+type User = {
+  name: string;
+  age?: number;
+};
+✅ Readonly Properties
+type User = {
+  readonly id: number;
+  name: string;
+};
+
+👉 id cannot be changed
+
+🔥 3. Nested Objects (Very Common)
+type User = {
+  name: string;
+  address: {
+    city: string;
+    pincode: number;
+  };
+};
+🔥 4. Functions Inside Objects
+type User = {
+  name: string;
+  greet: () => string;
+};
+
+const user: User = {
+  name: "John",
+  greet: () => "Hello"
+};
+🔥 5. Dynamic Object Keys (Important)
+type Scores = {
+  [key: string]: number;
+};
+
+const scores: Scores = {
+  math: 90,
+  science: 85
+};
+
+👉 Used in:
+
+dictionaries
+API maps
+🔥 6. Objects + Functions Together (REAL INTERVIEW)
+type User = {
+  name: string;
+  age: number;
+};
+
+function printUser(user: User): string {
+  return `${user.name} is ${user.age}`;
+}
+🔥 7. Destructuring with Types
+function greet({ name, age }: { name: string; age: number }) {
+  return `${name} is ${age}`;
+}
+🔥 8. Using in React (CRITICAL)
+type Props = {
+  name: string;
+  onClick: () => void;
+};
+
+function Button({ name, onClick }: Props) {
+  return <button onClick={onClick}>{name}</button>;
+}
+🧠 Key Interview Concepts
+1. Why type functions?
+
+👉 Prevent wrong inputs
+
+2. Why type objects?
+
+👉 Ensure consistent data structure
+
+3. Common mistakes:
+Using any instead of proper types
+Not typing function return
+Overcomplicating simple types
+
+
+⚡ Quick Practice (Do This Now)
+
+Try writing:
+
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
+
+function getDiscountedPrice(product: Product, discount: number): number {
+  return product.price - discount;
+}
