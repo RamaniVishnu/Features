@@ -1,0 +1,56 @@
+what is react portals?
+React Portals allow a component to render its DOM nodes outside its parent DOM hierarchy while remaining part of the same React component tree. 
+They are created using createPortal(). Portals are commonly used for modals, tooltips, and dropdowns where rendering inside the parent container may cause overflow or z-index issues. 
+Even though the DOM is rendered elsewhere, React event bubbling still works through the React component tree.
+
+
+Portal setup
+1)In public/index.html:
+
+<body>
+  <div id="root"></div>
+  <div id="portal-root"></div>
+</body>
+
+
+2)
+import { useState } from "react";
+import { createPortal } from "react-dom";
+
+function Modal({ onClose }) {
+  return createPortal(
+    <div className="overlay">
+      <div className="modal">
+        <h2>Delete Item?</h2>
+
+        <button onClick={onClose}>
+          Close
+        </button>
+      </div>
+    </div>,
+    document.body
+  );
+}
+
+export default function App() {
+  const [showModal, setShowModal] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setShowModal(true)}>
+        Open Modal
+      </button>
+
+      {showModal && (
+        <Modal
+          onClose={() => setShowModal(false)}
+        />
+      )}
+    </>
+  );
+}
+
+Does event bubbling and event capturing occurs?
+Event capturing and bubbling both work through the React tree even when a component is rendered using a Portal.
+Yes. With React Portals, both event capturing (onClickCapture) and event bubbling (onClick) work through the React component tree, not the DOM tree.
+Even if a portal renders its DOM nodes elsewhere, React's synthetic event system preserves the parent-child relationship from the React hierarchy, so capture and bubble phases continue to work as expected.
